@@ -31,7 +31,7 @@ class ClubController extends AbstractController
             'nb_participants'=>0),
             array('ref'=>'form178','Titre'=>'Formation Angular' ,
             'Description'=>'formation theorique','date_debut'=>'10/06/2020','date_fin'=>'14/06/2020',
-            'nb_participants'=>12));
+            'nb_participants'=>13));
         return $this->render('club/list.html.twig', array("x"=>$var,"y"=>$var1,"tabFormation"=>$formations));
     }
     #[Route('/reservation', name: 'app_reservation')]
