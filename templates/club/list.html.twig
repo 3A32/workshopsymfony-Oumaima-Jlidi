@@ -1,0 +1,52 @@
+<a href="{{path("app_reservation")}}"><img src="{{asset('images/image.jpg') }}" alt="student" heigth="100" , width="100"></a>
+<h1> Liste des formations </h1> de la classe {{x}} dans la salle {{y}} 
+{%if tabFormation is empty %}
+<h1> Pas de formations</h1>
+{%else%}
+<table border=1>
+<tr>
+<td>ref</td>
+<td>Titre</td>
+<td>Description</td>
+<td>nb_participants</td>
+<td>Participer</td>
+</tr>
+
+{% for f in tabFormation %}
+{%if f.Description =="formation theorique"%}
+<tr>
+<td>{{f.ref |upper}}</td>
+<td>{{f.Titre|upper}}</td>
+<td>{{f.Description|upper}}</td>
+<td>{{max([f.nb_participants])}}</td>
+{%if f.nb_participants==0%}
+<td><a href="{{path('app_reservation')}}">Participer</a></td>
+{%else%}
+<td>sold out </td>
+{%endif%}
+</tr>
+{%endif%}
+{%endfor%}
+
+{%endif%}
+</table>
+nombre de participants :{{tabFormation | length}}
+<br>
+{% set somme = 0 %}
+
+ Somme:
+ {% for f in tabFormation %}
+    {% set somme = somme+ f.nb_participants %}
+ {% endfor %}
+{{somme}}<br>
+max:
+{% set maxValue = 0 %}
+
+{% for f in tabFormation %} 
+    {% set maxValue = max(f.nb_participants, maxValue) %}
+    {% if f.nb_participants==maxValue%}
+    {{f.Titre}}
+    {%endif%}
+    
+{% endfor %} 
+  
