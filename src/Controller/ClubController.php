@@ -2,19 +2,24 @@
 
 namespace App\Controller;
 
+use App\Entity\Club;
+use App\Form\ClubType;
+use App\Repository\ClubRepository;
+use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class ClubController extends AbstractController
 {
     #[Route('/club', name: 'app_club')]
-    public function index(): Response
+    public function listClub(ClubRepository $clubRespository): Response
     {
-
-        return $this->render('club/index.html.twig', [
-            'controller_name' => 'ClubController',
-        ]);
+            return $this->render('club/listClub.html.twig', [
+                'clubs' => $clubRespository->findAll(),
+            ]);
+       
     }
     #[Route('/listFormation', name: 'list_formation')]
     public function list()
@@ -37,5 +42,53 @@ class ClubController extends AbstractController
     #[Route('/reservation', name: 'app_reservation')]
     public function Reservation(){
         return new Response("nouvelle page de reservation");
+    }
+
+    #[Route('/AjoutClub', name: 'app_ajout_club')]
+    public function AjoutClub(Request $request, ManagerRegistry $doctrine):Response{
+        $club=new Club();
+        $form = $this->createForm(ClubType::class, $club);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+        $em=$doctrine->getManager();
+        $em->persist($club);
+        $em->flush();
+            return $this->redirectToRoute('app_club', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('club/AjoutClub.html.twig', [
+            'club' => $club,
+            'form' => $form,
+        ]);
+    }
+    #[Route('/modifierClub/{id}', name: 'app_modifier_club')]
+    public function ModifierClub(Request $request, ManagerRegistry $doctrine,$id,ClubRepository $repository):Response{
+        $club=$repository->find($id);
+        $form = $this->createForm(ClubType::class, $club);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+        $em=$doctrine->getManager();
+
+        $em->flush();
+            return $this->redirectToRoute('app_club', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('club/ModifierClub.html.twig', [
+            'club' => $club,
+            'form' => $form,
+        ]);
+    }
+    #[Route('/supprimerClub/{id}', name: 'app_supprimer_club')]
+    public function SupprimerClub(Request $request, ManagerRegistry $doctrine,$id,ClubRepository $repository):Response{
+        $club=$repository->find($id);
+        $em=$doctrine->getManager();
+        $em->remove($club);
+        $em->flush();
+            return $this->redirectToRoute('app_club', [], Response::HTTP_SEE_OTHER);
+        
+
+       
     }
 }
