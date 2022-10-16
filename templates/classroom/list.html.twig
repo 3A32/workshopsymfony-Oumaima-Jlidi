@@ -2,13 +2,13 @@
 {%block body%}
 <center><table border=1 class="card-title">
        <div class="card-header header-elements-inline" style="background-color:Teal">
-						<h3 class="card-title" style="color:white">Listes des Clubs</h3>
+						<h3 class="card-title" style="color:white">Listes des classrooms</h3>
 
         <thead>
             <tr>
                 <th colspan="5">ID</th>
                 <th colspan="5">Name</th>
-                <th colspan="5">Description</th>
+          
             <th colspan="5"><center>actions</center></th>
                
             
@@ -17,18 +17,18 @@
         </thead>
         <tbody>
        
-        {% for club in clubs %}
+        {% for classroom in classrooms %}
         
             <tr>
                
-                <td colspan="5">{{ club.id }}</td>
-                <td colspan="5">{{ club.name }}</td>
-                <td colspan="5">{{ club.description }}</td>
+                <td colspan="5">{{ classroom.id }}</td>
+                <td colspan="5">{{ classroom.name }}</td>
+        
               <td colspan="5">
                
-<a class="btn btn-success" href="{{ path('app_ajout_club') }}"style="width:150px" > Ajouter</a></div>
-<a class="btn btn-warning"  href="{{ path('app_modifier_club', {'id': club.id}) }}"style="width:90px">Modifier</a>
-<a class="btn btn-danger"  href="{{ path('app_supprimer_club', {'id': club.id}) }}"style="width:90px">Supprimer</a>
+<a class="btn btn-success" href="{{ path('app_ajout_classroom')}}"style="width:150px" > Ajouter </a></div>
+<a class="btn btn-warning"  href="{{ path('app_modifier_classroom', {'id': classroom.id}) }}"style="width:90px">Modifier</a>
+<a class="btn btn-danger"  href="{{ path('app_supprimer_classroom', {'id': classroom.id}) }}"style="width:90px">Supprimer</a>
 
                 </td>
            

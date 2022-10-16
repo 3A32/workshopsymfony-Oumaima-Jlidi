@@ -2,30 +2,34 @@
 
 namespace App\Form;
 
-use App\Entity\Club;
-
 use App\Entity\Student;
+use App\Entity\Classroom;
+
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
-class ClubType extends AbstractType
+class StudentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('name')
-            ->add('description')
-            ->add('students',EntityType::class,array('class' => Student::class, 'choice_label' => 'NSC',
-            'multiple'  => true,))
+        ->add('email')
+        ->add('NSC', TextType::class, ['label' => 'Numero CIN'])
+        ->add('classroom',EntityType::class,['class' => Classroom::class,'label' => 'Classroom'])
+
+        
+            
         ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Club::class,
+            'data_class' => Student::class,
         ]);
     }
 }
