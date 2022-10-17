@@ -5,8 +5,9 @@ namespace App\Controller;
 use App\Entity\Club;
 use App\Form\ClubType;
 use App\Repository\ClubRepository;
-use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Doctrine\Persistence\ManagerRegistry;
+
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -29,9 +30,9 @@ class ClubController extends AbstractController
         $formations = array(
             array('ref' => 'form147', 'Titre' => 'Formation Symfony
             4','Description'=>'formation pratique',
-            'date_debut'=>'12/06/2020', 'date_fin'=>'19/06/2020',
+            'date_debut'=>'12/06/2022', 'date_fin'=>'19/06/2020',
             'nb_participants'=>19) ,
-            array('ref'=>'form177','Titre'=>'Formation SOA' ,
+            array('ref'=>'form1778','Titre'=>'Formation SOA' ,
             'Description'=>'formation theorique','date_debut'=>'03/12/2020','date_fin'=>'10/12/2020',
             'nb_participants'=>0),
             array('ref'=>'form178','Titre'=>'Formation Angular' ,
