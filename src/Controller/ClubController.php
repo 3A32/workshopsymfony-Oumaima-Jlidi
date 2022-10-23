@@ -63,9 +63,9 @@ class ClubController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[Route('/modifierClub/{id}', name: 'app_modifier_club')]
-    public function ModifierClub(Request $request, ManagerRegistry $doctrine,$id,ClubRepository $repository):Response{
-        $club=$repository->find($id);
+    #[Route('/modifierClub/{ref}', name: 'app_modifier_club')]
+    public function ModifierClub(Request $request, ManagerRegistry $doctrine,$ref,ClubRepository $repository):Response{
+        $club=$repository->find($ref);
         $form = $this->createForm(ClubType::class, $club);
         $form->handleRequest($request);
 
@@ -81,9 +81,9 @@ class ClubController extends AbstractController
             'form' => $form,
         ]);
     }
-    #[Route('/supprimerClub/{id}', name: 'app_supprimer_club')]
-    public function SupprimerClub(Request $request, ManagerRegistry $doctrine,$id,ClubRepository $repository):Response{
-        $club=$repository->find($id);
+    #[Route('/supprimerClub/{ref}', name: 'app_supprimer_club')]
+    public function SupprimerClub( ManagerRegistry $doctrine,$ref,ClubRepository $repository):Response{
+        $club=$repository->find($ref);
         $em=$doctrine->getManager();
         $em->remove($club);
         $em->flush();

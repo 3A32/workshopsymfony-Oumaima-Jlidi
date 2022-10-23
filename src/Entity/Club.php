@@ -25,14 +25,6 @@ class Club
     #[ORM\Column(length: 255)]
     private ?string $createdAt = null;
 
-    #[ORM\ManyToMany(targetEntity: Student::class, inversedBy: 'clubs')]
-    private Collection $student;
-
-    public function __construct()
-    {
-        $this->student = new ArrayCollection();
-    }
-
 
 
 
@@ -84,27 +76,5 @@ class Club
         return $this;
     }
 
-    /**
-     * @return Collection<int, Student>
-     */
-    public function getStudent(): Collection
-    {
-        return $this->student;
-    }
-
-    public function addStudent(Student $student): self
-    {
-        if (!$this->student->contains($student)) {
-            $this->student->add($student);
-        }
-
-        return $this;
-    }
-
-    public function removeStudent(Student $student): self
-    {
-        $this->student->removeElement($student);
-
-        return $this;
-    }
+   
 }
