@@ -7,7 +7,7 @@
         <thead>
             <tr>
                 <th colspan="5">CIN</th>
-                <th colspan="5">Email</th>
+                <th colspan="5">Username</th>
                 <th colspan="5">Classroom</th>
             <th colspan="5"><center>actions</center></th>
                
@@ -21,15 +21,14 @@
         
             <tr>
                
-                <td colspan="5">{{ student.NSC }}</td>
-                <td colspan="5">{{ student.email }}</td>
+                <td colspan="5">{{ student.nsc }}</td>
+                <td colspan="5">{{ student.username }}</td>
                 <td colspan="5">{{ student.classroom.name }}</td>
 
               <td colspan="5">
                
-<a class="btn btn-success" href="{{ path('app_ajout_student')}}"style="width:150px" > Ajouter </a></div>
-<a class="btn btn-warning"  href="{{ path('app_modifier_student', {'NSC': student.NSC}) }}"style="width:90px">Modifier</a>
-<a class="btn btn-danger"  href="{{ path('app_supprimer_student', {'NSC': student.NSC}) }}"style="width:90px">Supprimer</a>
+<a class="btn btn-warning"  href="{{ path('app_modifier_student', {'nsc': student.nsc}) }}"style="width:90px">Modifier</a>
+<a class="btn btn-danger"  href="{{ path('app_supprimer_student', {'nsc': student.nsc}) }}"style="width:90px">Supprimer</a>
                 </td>
            
                  
@@ -45,6 +44,8 @@
       
         </tbody>
     </table>
+    <a class="btn btn-success" href="{{ path('app_ajout_student')}}"style="width:150px" > Ajouter </a></div>
+
     </center>
     </div>
     {%endblock%}

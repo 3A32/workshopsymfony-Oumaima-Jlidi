@@ -16,7 +16,7 @@ class Classroom
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $Name = null;
+    private ?string $name = null;
 
     #[ORM\OneToMany(mappedBy: 'classroom', targetEntity: Student::class)]
     private Collection $students;
@@ -33,12 +33,12 @@ class Classroom
 
     public function getName(): ?string
     {
-        return $this->Name;
+        return $this->name;
     }
 
-    public function setName(string $Name): self
+    public function setName(string $name): self
     {
-        $this->Name = $Name;
+        $this->name = $name;
 
         return $this;
     }
@@ -72,7 +72,8 @@ class Classroom
 
         return $this;
     }
-    public function __toString() {
-        return $this->Name;
+    public function __toString()
+    {
+        return(string)$this->getName();
     }
 }

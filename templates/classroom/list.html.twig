@@ -10,7 +10,7 @@
                 <th colspan="5">Name</th>
           
             <th colspan="5"><center>actions</center></th>
-               
+
             
                
             </tr>
@@ -26,9 +26,8 @@
         
               <td colspan="5">
                
-<a class="btn btn-success" href="{{ path('app_ajout_classroom')}}"style="width:150px" > Ajouter </a></div>
-<a class="btn btn-warning"  href="{{ path('app_modifier_classroom', {'id': classroom.id}) }}"style="width:90px">Modifier</a>
-<a class="btn btn-danger"  href="{{ path('app_supprimer_classroom', {'id': classroom.id}) }}"style="width:90px">Supprimer</a>
+               <a class="btn btn-warning"  href="{{ path('app_modifier_classroom', {'id': classroom.id}) }}"style="width:90px">Modifier</a>
+               <a class="btn btn-danger"  href="{{ path('app_supprimer_classroom', {'id': classroom.id}) }}"style="width:90px">Supprimer</a>
 
                 </td>
            
@@ -42,9 +41,13 @@
             </tr>
               
         {% endfor %}
-      
+
         </tbody>
+
     </table>
+    <a class="btn btn-success" href="{{ path('app_ajout_classroom')}}"style="width:150px" > Ajouter </a></div>
+
     </center>
+    
     </div>
     {%endblock%}
