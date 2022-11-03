@@ -3,7 +3,9 @@
 namespace App\Controller;
 
 use App\Entity\Student;
+use App\Form\SearchStudentType;
 use App\Form\StudentType;
+use App\Repository\ClassroomRepository;
 use App\Repository\StudentRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -15,18 +17,31 @@ class StudentController extends AbstractController
 {
   
     #[Route('/student', name: 'app_student')]
-    public function index(StudentRepository $student): Response
+    public function index(StudentRepository $repository,Request $request): Response
     {
-        return $this->render('student/list.html.twig', [
-            'students' => $student->findAll(),
-        ]);
+        $students= $repository->findAll();
+        $studentsBynsc=$repository->getStudentsOrdredBynsc();
+        $formSearch= $this->createForm(SearchStudentType::class);
+        $formSearch->handleRequest($request) ;
+        $topStudents= $repository->topStudent();
+        if($formSearch->isSubmitted()){
+             $nsc=$formSearch->getData();
+             $result= $repository->findStudentBynsc($nsc);
+             return $this->renderForm("student/list.html.twig",
+                 array("students"=>$result,"bynsc"=>$studentsBynsc,"searchForm"=>$formSearch, "topStudent"=>$topStudents));
+         }
+        return $this->renderForm("student/list.html.twig",
+       array("students"=>$students,
+                "bynsc"=>$studentsBynsc,
+                "searchForm"=>$formSearch,
+                 "topStudent"=>$topStudents));
     }
     #[Route('Ajoutstudent',name:'app_ajout_student')]
     public function Ajoutstudent(Request $request ,ManagerRegistry $doctrine):Response{
         $student=new Student();
         $form=$this->createForm(studentType::class,$student);
         $form->handleRequest($request);
-        if($form->isSubmitted()&&$form->isValid()){
+        if($form->isSubmitted()&& $form->isValid()){
            $em=$doctrine->getManager();
            $em->persist($student);
            $em->flush();
@@ -67,5 +82,14 @@ class StudentController extends AbstractController
         
 
        
+    }
+    #[Route('/showclassroom/{id}', name: 'app_showStudent')]
+    public function showClassroom(StudentRepository  $rep,ClassroomRepository  $repository ,$id)
+    {
+     $classroom= $repository->find($id);
+     $students= $rep->getStudentsByClassroom($id);
+     return $this->render("student/showClassroom.html.twig",array(
+         "classrom"=>$classroom,
+         'students'=>$students));
     }
 }

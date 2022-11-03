@@ -38,6 +38,7 @@ class ClubRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    
 
 //    /**
 //     * @return Club[] Returns an array of Club objects

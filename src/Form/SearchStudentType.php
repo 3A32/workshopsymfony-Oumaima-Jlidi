@@ -4,19 +4,17 @@ namespace App\Form;
 
 use App\Entity\Student;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class StudentType extends AbstractType
+class SearchStudentType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('nsc')
-            ->add('username')
-            ->add('classroom')
-            ->add('moyenne')
-
+            ->add('search', SubmitType::class)
         ;
     }
 
