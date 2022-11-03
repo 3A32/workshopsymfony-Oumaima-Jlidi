@@ -82,7 +82,7 @@ class ClubController extends AbstractController
         ]);
     }
     #[Route('/supprimerClub/{ref}', name: 'app_supprimer_club')]
-    public function SupprimerClub( ManagerRegistry $doctrine,$ref,ClubRepository $repository):Response{
+    public function SupprimerClub(  ManagerRegistry $doctrine,$ref,ClubRepository $repository):Response{
         $club=$repository->find($ref);
         $em=$doctrine->getManager();
         $em->remove($club);

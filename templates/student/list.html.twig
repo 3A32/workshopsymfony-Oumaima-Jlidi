@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 {%block body%}
-<center><table border=1 class="card-title">
-       <div class="card-header header-elements-inline" style="background-color:Teal">
-						<h3 class="card-title" style="color:white">Listes des students</h3>
+     <br>{{ form(searchForm) }}
 
+<center><table border=1 class="card-title">
+       <div class="card-header header-elements-inline" style="background-color:#e83e8c">
+						<h3 class="card-title" style="color:white">Listes des eleves</h3>
         <thead>
             <tr>
                 <th colspan="5">CIN</th>
                 <th colspan="5">Username</th>
+                <th colspan="5">Moyenne</th>
                 <th colspan="5">Classroom</th>
             <th colspan="5"><center>actions</center></th>
                
@@ -23,6 +25,8 @@
                
                 <td colspan="5">{{ student.nsc }}</td>
                 <td colspan="5">{{ student.username }}</td>
+                <td colspan="5">{{ student.moyenne }}</td>
+
                 <td colspan="5">{{ student.classroom.name }}</td>
 
               <td colspan="5">
@@ -45,6 +49,103 @@
         </tbody>
     </table>
     <a class="btn btn-success" href="{{ path('app_ajout_student')}}"style="width:150px" > Ajouter </a></div>
+
+    </center>
+    </div>
+ <br><br>
+<center><table border=1 class="card-title">
+       <div class="card-header header-elements-inline" style="background-color:#ffc107">
+						<h3 class="card-title" style="color:white">Listes des eleves par CIN</h3>
+
+        <thead>
+            <tr>
+                <th colspan="5">CIN</th>
+                <th colspan="5">Username</th>
+        
+            <th colspan="5"><center>actions</center></th>
+               
+            
+               
+            </tr>
+        </thead>
+        <tbody>
+       
+        {% for student in bynsc %}
+        
+            <tr>
+               
+                <td colspan="5">{{ student.nsc }}</td>
+                <td colspan="5">{{ student.username }}</td>
+
+              <td colspan="5">
+               
+<a class="btn btn-warning"  href="{{ path('app_modifier_student', {'nsc': student.nsc}) }}"style="width:90px">Modifier</a>
+<a class="btn btn-danger"  href="{{ path('app_supprimer_student', {'nsc': student.nsc}) }}"style="width:90px">Supprimer</a>
+                </td>
+           
+                 
+                </td>
+            </tr>
+          
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+              
+        {% endfor %}
+      
+        </tbody>
+    </table>
+
+    </center>
+    </div>
+<br>
+<center><table border=1 class="card-title">
+       <div class="card-header header-elements-inline" style="background-color:#28a745">
+						<h3 class="card-title" style="color:white">Listes des meilleurs eleves</h3>
+
+        <thead>
+            <tr>
+                <th colspan="5">CIN</th>
+                <th colspan="5">Username</th>
+                <th colspan="5">Moyenne</th>
+
+            <th colspan="5"><center>actions</center></th>
+               
+            
+               
+            </tr>
+        </thead>
+        <tbody>
+       
+        {% for student in topStudent %}
+        
+            <tr>
+               
+                <td colspan="5">{{ student.nsc }}</td>
+                <td colspan="5">{{ student.username }}</td>
+                <td colspan="5">{{ student.moyenne }}</td>
+
+
+              <td colspan="5">
+               
+<a class="btn btn-warning"  href="{{ path('app_modifier_student', {'nsc': student.nsc}) }}"style="width:90px">Modifier</a>
+<a class="btn btn-danger"  href="{{ path('app_supprimer_student', {'nsc': student.nsc}) }}"style="width:90px">Supprimer</a>
+                </td>
+           
+                 
+                </td>
+            </tr>
+          
+        {% else %}
+            <tr>
+                <td colspan="9">no records found</td>
+            </tr>
+              
+        {% endfor %}
+      
+        </tbody>
+    </table>
 
     </center>
     </div>
